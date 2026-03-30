@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
-  AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer
+  AreaChart, Area, XAxis, Tooltip, ResponsiveContainer
 } from 'recharts';
 import {
   Snowflake, Droplets, Grid, PlugZap, ShieldCheck, ShieldAlert,
