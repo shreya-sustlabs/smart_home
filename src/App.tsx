@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import {
-  AreaChart, Area, XAxis, Tooltip, ResponsiveContainer
+  AreaChart, Area, XAxis, Tooltip, ResponsiveContainer, BarChart, Bar, YAxis
 } from 'recharts';
 import {
   Snowflake, Droplets, Grid, PlugZap, ShieldCheck, ShieldAlert,
-  TriangleAlert, Power, Car, Thermometer, Wind, WashingMachine
+  TriangleAlert, Power, Car, Thermometer, WashingMachine
 } from 'lucide-react';
 
 const initialChartData = [
@@ -25,18 +25,15 @@ const appliances = [
   { name: 'Washing Machine', val: '123.45 U', Icon: WashingMachine },
   { name: 'Geyser', val: '123.45 U', Icon: Droplets },
   { name: 'EV', val: '123.45 U', Icon: Car },
-  { name: 'Water Pumps', val: '123.45 U', Icon: Wind },
-  { name: 'Electricity', val: '123.45 U', Icon: PlugZap },
-  { name: 'Others', val: '123.45 U', Icon: Grid },
 ];
 
 const onIcons = [
-  { color: '#cb5344', Icon: Snowflake },
+  { color: '#3173a3', Icon: Snowflake },
   { color: '#6e46cb', Icon: Droplets },
   { color: '#e6a727', Icon: Grid },
   { color: '#df7359', Icon: PlugZap },
   { color: '#cb5344', Icon: Car },
-  { color: '#388a32', Icon: Wind },
+  { color: '#388a32', Icon: Snowflake }, // Placeholder for the green one
 ];
 
 const alerts = [
@@ -45,6 +42,17 @@ const alerts = [
   { title: 'Short circuit Detected', time: '12:03 AM', type: 'orange' },
   { title: 'High Load Alert Detected', time: '12:03 AM', type: 'red' },
   { title: 'Power Surge Detected', time: '12:03 AM', type: 'orange' },
+  { title: 'High Load Alert Detected', time: '12:03 AM', type: 'red' },
+];
+
+const weeklyData = [
+  { day: 'Mon', lastWeek: 8, currentWeek: 11 },
+  { day: 'Tue', lastWeek: 6, currentWeek: 4 },
+  { day: 'Wed', lastWeek: 4, currentWeek: 9 },
+  { day: 'Thu', lastWeek: 8, currentWeek: 12 },
+  { day: 'Fri', lastWeek: 10, currentWeek: 6 },
+  { day: 'Sat', lastWeek: 7, currentWeek: 10 },
+  { day: 'Sun', lastWeek: 5, currentWeek: 8 },
 ];
 
 function App() {
@@ -86,7 +94,7 @@ function App() {
       <div className="header">
         <div className="header-left">
           <h1>Good morning, Shyam</h1>
-          <p>Mon, Mar 30</p>
+          <p>Monday, March 30</p>
         </div>
         <div className="header-right">
           <div className="stat-box">
@@ -99,7 +107,7 @@ function App() {
           </div>
           <div className="stat-box">
             <span className="stat-label">Co2</span>
-            <span className="stat-val">11.1 <span className="stat-unit">Kg</span></span>
+            <span className="stat-val">11.2 <span className="stat-unit">Kg</span></span>
           </div>
         </div>
       </div>
@@ -122,10 +130,10 @@ function App() {
             
             <div className="chart-placeholder">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={data} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                <AreaChart data={data} margin={{ top: 10, right: 0, left: 10, bottom: 0 }}>
                   <defs>
                     <linearGradient id="colorUsage" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#cb5344" stopOpacity={0.5}/>
+                      <stop offset="5%" stopColor="#cb5344" stopOpacity={0.6}/>
                       <stop offset="95%" stopColor="#cb5344" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
@@ -135,12 +143,16 @@ function App() {
                     tickLine={false} 
                     tick={{fill: '#9a9a9f', fontSize: 12}}
                     dy={10}
+                    interval={2}
                   />
                   <Tooltip 
                     contentStyle={{ backgroundColor: '#1c1b1f', border: '1px solid #2d2c31', borderRadius: '8px' }}
                     itemStyle={{ color: '#fff' }}
                     labelStyle={{ display: 'none' }}
                   />
+                  <div className="usage-overlay" style={{position: 'absolute', top: 30, right: 10, color: 'var(--highlight-red)', fontSize: '14px'}}>
+                    Usage: <span style={{fontWeight: 600}}>0.22 Units</span>
+                  </div>
                   <Area 
                     type="monotone" 
                     dataKey="usage" 
@@ -193,7 +205,7 @@ function App() {
           <div className="card appliances-card">
             <div className="card-header">
               <div className="card-title-group">
-                <h2>Appliances total consumption</h2>
+                <h2>Top 5 Appliance Consumption</h2>
               </div>
             </div>
             
@@ -218,6 +230,37 @@ function App() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+
+          <div className="card weekly-card">
+            <div className="weekly-stats">
+              <div className="weekly-stat-item">
+                <span className="stat-label">Last Week</span>
+                <span className="stat-val">45.6 <span className="stat-unit">Units</span></span>
+              </div>
+              <div className="weekly-stat-item border-left">
+                <span className="stat-label">Current Week</span>
+                <span className="stat-val">12.6 <span className="stat-unit">Units</span></span>
+              </div>
+              <div className="last-days">Last 7 days</div>
+            </div>
+
+            <div className="weekly-chart-container">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={weeklyData} margin={{ top: 20, right: 0, left: -40, bottom: 0 }}>
+                  <XAxis 
+                    dataKey="day" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{fill: '#9a9a9f', fontSize: 10}}
+                    dy={5}
+                  />
+                  <YAxis hide domain={[0, 15]} />
+                  <Bar dataKey="lastWeek" fill="#2d2c31" radius={[2, 2, 0, 0]} barSize={6} />
+                  <Bar dataKey="currentWeek" fill="#22998a" radius={[2, 2, 0, 0]} barSize={6} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
@@ -246,7 +289,7 @@ function App() {
             <div className="status-pill status-risk">
               <div className="status-left">
                 <ShieldAlert size={20} />
-                Risk
+                Probable Risk
               </div>
             </div>
           </div>

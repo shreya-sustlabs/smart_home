@@ -264,10 +264,11 @@ body {
 .col-mid {
   display: flex;
   flex-direction: column;
+  gap: 24px;
 }
 
 .appliances-card {
-  flex: 1;
+  flex: 1.5;
   padding: 20px;
 }
 
@@ -337,6 +338,59 @@ body {
 
 .on-icon-circle:first-child {
   margin-left: 0;
+}
+
+.weekly-card {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.weekly-stats {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.weekly-stat-item {
+  display: flex;
+  flex-direction: column;
+  padding-right: 24px;
+}
+
+.weekly-stat-item.border-left {
+  padding-left: 24px;
+  border-left: 1px solid var(--card-border);
+}
+
+.weekly-stat-item .stat-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.weekly-stat-item .stat-val {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.weekly-stat-item .stat-unit {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.last-days {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.weekly-chart-container {
+  flex: 1;
+  min-height: 120px;
 }
 
 /* RIGHT COLUMN */
