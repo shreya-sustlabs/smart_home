@@ -141,7 +141,7 @@ function App() {
                     dataKey="time" 
                     axisLine={false} 
                     tickLine={false} 
-                    tick={{fill: '#9a9a9f', fontSize: 12}}
+                    tick={{fill: '#9a9a9f', fontSize: 10}}
                     dy={10}
                     interval={2}
                   />
@@ -150,7 +150,7 @@ function App() {
                     itemStyle={{ color: '#fff' }}
                     labelStyle={{ display: 'none' }}
                   />
-                  <div className="usage-overlay" style={{position: 'absolute', top: 30, right: 10, color: 'var(--highlight-red)', fontSize: '14px'}}>
+                  <div className="usage-overlay" style={{position: 'absolute', top: 20, right: 10, color: 'var(--highlight-red)', fontSize: '11px'}}>
                     Usage: <span style={{fontWeight: 600}}>0.22 Units</span>
                   </div>
                   <Area 
@@ -213,7 +213,7 @@ function App() {
               {appliances.map((app, idx) => (
                 <div className="appliance-item" key={idx}>
                   <div className="app-left">
-                    <app.Icon size={18} className="app-icon" />
+                    <app.Icon size={16} className="app-icon" />
                     {app.name}
                   </div>
                   <div className="app-val">{app.val}</div>
@@ -226,7 +226,7 @@ function App() {
               <div className="on-icons">
                 {onIcons.map((icn, i) => (
                   <div className="on-icon-circle" key={i} style={{ backgroundColor: icn.color }}>
-                    <icn.Icon size={16} color="#fff" />
+                    <icn.Icon size={14} color="#fff" />
                   </div>
                 ))}
               </div>
@@ -280,15 +280,15 @@ function App() {
             
             <div className="status-pill status-safe">
               <div className="status-left">
-                <ShieldCheck size={20} />
+                <ShieldCheck size={18} />
                 Safe
               </div>
-              <ShieldCheck size={20} strokeWidth={1.5} opacity={0.8}/>
+              <ShieldCheck size={18} strokeWidth={1.5} opacity={0.8}/>
             </div>
             
             <div className="status-pill status-risk">
               <div className="status-left">
-                <ShieldAlert size={20} />
+                <ShieldAlert size={18} />
                 Probable Risk
               </div>
             </div>
@@ -304,7 +304,7 @@ function App() {
               {alerts.map((al, idx) => (
                 <div className="alert-item" key={idx}>
                   <div className={`alert-icon-wrap ${al.type}`}>
-                    {al.type === 'red' ? <TriangleAlert size={18} /> : <Power size={18} />}
+                    {al.type === 'red' ? <TriangleAlert size={16} /> : <Power size={16} />}
                   </div>
                   <div className="alert-info">
                     <span className="alert-title">{al.title}</span>
